@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Slides from '../components/Slides';
 
 const SLIDES_DATA = [
@@ -19,6 +19,17 @@ const SLIDES_DATA = [
   }
 ];
 
-export default () => (
-  <Slides data={SLIDES_DATA} />
-);
+class WelcomeScreen extends Component {
+  redirectToLogin = () => {
+    const { navigation } = this.props;
+    navigation.navigate('signup');
+  }
+
+  render() {
+    return (
+      <Slides data={SLIDES_DATA} onComplete={this.redirectToLogin} />
+    );
+  }
+}
+
+export default WelcomeScreen;
