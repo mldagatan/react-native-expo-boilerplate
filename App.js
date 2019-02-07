@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import WelcomeScreen from './screens/WelcomeScreen';
+import AppRoutes from './config/routes';
 
 const App = () => (
   <View style={styles.container}>
-    <WelcomeScreen />
+    <AppRoutes />
   </View>
 );
 
