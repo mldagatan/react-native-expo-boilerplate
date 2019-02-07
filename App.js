@@ -1,15 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
-}
+import WelcomeScreen from './screens/WelcomeScreen';
+
+const App = () => (
+  <View style={styles.container}>
+    <WelcomeScreen />
+  </View>
+);
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
