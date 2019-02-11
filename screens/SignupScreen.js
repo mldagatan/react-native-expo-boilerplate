@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, KeyboardAvoidingView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
+import * as actions from '../actions';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../Globals';
 
 class SignupScreen extends Component {
@@ -10,10 +13,37 @@ class SignupScreen extends Component {
     password: ''
   }
 
+  componentDidMount() {
+    this.checkForSuccess(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkForSuccess(nextProps);
+  }
+
+  checkForSuccess = (props) => {
+    const { signUpSuccess, navigation } = props;
+
+    if (!_.isNull(signUpSuccess) && signUpSuccess) {
+      navigation.navigate('login');
+    }
+  }
+
   onSignupPress = () => {
     const { email, password } = this.state;
+    const { signUp } = this.props;
 
-    // console.log(email, password);
+    signUp(email, password);
+  }
+
+  renderErrors() {
+    const { signUpErrors } = this.props;
+
+    if (!signUpErrors) {
+      return null;
+    }
+
+    return signUpErrors.map(error => <Text>{error}</Text>);
   }
 
   render() {
@@ -21,6 +51,7 @@ class SignupScreen extends Component {
 
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.containerStyle}>
+        {this.renderErrors()}
         <View style={styles.inputContainer}>
           <Text style={styles.signupTitle}>Sign Up</Text>
           <Input
@@ -69,4 +100,11 @@ const styles = {
   }
 };
 
-export default SignupScreen;
+const mapStateToProps = ({ auth: { signUpErrors, signUpSuccess } }) => ({
+  signUpErrors, signUpSuccess
+});
+
+export default connect(
+  mapStateToProps,
+  { signUp: actions.signUp }
+)(SignupScreen);
