@@ -6,11 +6,13 @@ import {
 import WelcomeScreen from '../screens/WelcomeScreen';
 import SignupScreen from '../screens/SignupScreen';
 import LoginScreen from '../screens/LoginScreen';
+import DashboardScreen from '../screens/DashboardScreen';
 
 const AppNavigator = createSwitchNavigator({
-  signup: SignupScreen,
   welcome: WelcomeScreen,
-  login: LoginScreen
+  signup: SignupScreen,
+  login: LoginScreen,
+  dashboard: DashboardScreen
 });
 
 export default createAppContainer(AppNavigator);

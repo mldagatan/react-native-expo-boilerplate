@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 import { ROOT_API } from '../Globals';
-import { AUTH_SIGN_UP, AUTH_SIGN_UP_FAIL } from './types';
+import {
+  AUTH_SIGN_UP,
+  AUTH_SIGN_UP_FAIL,
+  AUTHENTICATE_LOGIN,
+  AUTH_SET_USER,
+} from './types';
 
 const signUp = (email, password) => async (dispatch) => {
   const payload = { user: { email, password } };
@@ -16,4 +21,16 @@ const signUp = (email, password) => async (dispatch) => {
   }
 };
 
-export { signUp };
+const authenticateLogin = (email, password) => async (dispatch) => {
+  const payload = { user: { email, password } };
+  const url = `${ROOT_API}/auth/sign_in`;
+
+  let { headers, data, status } = await axios.post(url, payload);
+
+  if (status === 200) {
+    dispatch({ type: AUTHENTICATE_LOGIN, payload: headers });
+    dispatch({ type: AUTH_SET_USER, payload: data });
+  }
+};
+
+export { signUp, authenticateLogin };

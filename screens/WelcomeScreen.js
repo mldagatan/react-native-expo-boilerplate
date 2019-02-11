@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Slides from '../components/Slides';
 
 const SLIDES_DATA = [
@@ -20,16 +22,26 @@ const SLIDES_DATA = [
 ];
 
 class WelcomeScreen extends Component {
-  redirectToLogin = () => {
+  componentDidMount() {
+    const { user, navigation } = this.props;
+
+    if (user) {
+      navigation.navigate('login');
+    }
+  }
+
+  redirectToSignup = () => {
     const { navigation } = this.props;
     navigation.navigate('signup');
   }
 
   render() {
     return (
-      <Slides data={SLIDES_DATA} onComplete={this.redirectToLogin} />
+      <Slides data={SLIDES_DATA} onComplete={this.redirectToSignup} />
     );
   }
 }
 
-export default WelcomeScreen;
+const mapStateToProps = ({ auth: { user } }) => ({ user });
+
+export default connect(mapStateToProps)(WelcomeScreen);
