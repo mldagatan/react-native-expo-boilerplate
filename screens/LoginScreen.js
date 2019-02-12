@@ -58,6 +58,21 @@ class LoginScreen extends Component {
     );
   }
 
+  renderAuthErrors() {
+    const { authErrors, authSuccess } = this.props;
+
+    if (!authErrors.length && authSuccess) {
+      return null;
+    }
+
+    return authErrors.map(message => (
+      <FlashMessage
+        message={message}
+        key={message}
+      />
+    ));
+  }
+
   render() {
     const { email, password } = this.state;
 
@@ -66,6 +81,7 @@ class LoginScreen extends Component {
         <View>
           <Text style={styles.title}>LOGIN</Text>
           {this.renderSignupConfirmation()}
+          {this.renderAuthErrors()}
         </View>
         <View style={styles.inputContainer}>
           <Input
@@ -103,8 +119,17 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ auth: { user, signUpSuccess, authSuccess } }) => ({
-  user, signUpSuccess, authSuccess
+const mapStateToProps = (
+  {
+    auth: {
+      user,
+      signUpSuccess,
+      authSuccess,
+      authErrors
+    }
+  }
+) => ({
+  user, signUpSuccess, authSuccess, authErrors
 });
 
 export default connect(mapStateToProps, {

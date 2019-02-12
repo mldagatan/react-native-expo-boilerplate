@@ -2,7 +2,8 @@ import {
   AUTH_SIGN_UP,
   AUTH_SIGN_UP_FAIL,
   AUTH_SET_USER,
-  AUTHENTICATE_LOGIN
+  AUTHENTICATE_LOGIN,
+  AUTH_FAIL
 } from '../actions/types';
 
 const DEFAULT_STATE = {
@@ -13,7 +14,8 @@ const DEFAULT_STATE = {
   client: null,
   expiry: null,
   tokenType: null,
-  authSuccess: null
+  authSuccess: null,
+  authErrors: []
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -33,6 +35,8 @@ export default (state = DEFAULT_STATE, action) => {
         tokenType: action.payload['token-type'],
         authSuccess: true
       };
+    case AUTH_FAIL:
+      return { ...state, authErrors: action.payload, authSuccess: false };
     default:
       return state;
   }
