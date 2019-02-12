@@ -9,9 +9,9 @@ import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 
 const AppNavigator = createSwitchNavigator({
-  login: LoginScreen,
   welcome: WelcomeScreen,
   signup: SignupScreen,
+  login: LoginScreen,
   dashboard: DashboardScreen
 });
 

@@ -28,7 +28,7 @@ class Slides extends Component {
           title={loginText}
           type="clear"
           onPress={toLogin}
-          titleStyle={styles.signupStyle}
+          titleStyle={styles.loginStyle}
         />
       </View>
     );
@@ -88,7 +88,7 @@ const styles = {
     marginTop: 15,
     backgroundColor: '#0288d1'
   },
-  signupStyle: {
+  loginStyle: {
     fontSize: 14,
     color: '#fff'
   }

@@ -44,6 +44,12 @@ class LoginScreen extends Component {
     auth(email, password);
   }
 
+  toSignup = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('signup');
+  }
+
   renderSignupConfirmation() {
     const { user, signUpSuccess } = this.props;
 
@@ -97,6 +103,14 @@ class LoginScreen extends Component {
           />
         </View>
         <Button title="Log In" onPress={this.handleLogin} />
+        <View>
+          <Button
+            title="Don't have an account yet? Sign up here."
+            type="clear"
+            onPress={this.toSignup}
+            titleStyle={styles.loginStyle}
+          />
+        </View>
       </View>
     );
   }
@@ -116,6 +130,10 @@ const styles = {
   title: {
     textAlign: 'center',
     fontSize: 20
+  },
+  loginStyle: {
+    fontSize: 14,
+    color: '#000'
   }
 };
 
