@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-native-elements';
+import _ from 'lodash';
 
 import { SCREEN_WIDTH } from '../Globals';
 
@@ -46,7 +47,7 @@ class LoginScreen extends Component {
   renderSignupConfirmation() {
     const { user, signUpSuccess } = this.props;
 
-    if (!user && !signUpSuccess) {
+    if (!_.size(user) && !signUpSuccess) {
       return null;
     }
 
@@ -100,7 +101,7 @@ const styles = {
     textAlign: 'center',
     fontSize: 20
   }
-}
+};
 
 const mapStateToProps = ({ auth: { user, signUpSuccess, authSuccess } }) => ({
   user, signUpSuccess, authSuccess

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Slides from '../components/Slides';
 
@@ -25,7 +26,7 @@ class WelcomeScreen extends Component {
   componentDidMount() {
     const { user, navigation } = this.props;
 
-    if (user) {
+    if (_.size(user)) {
       navigation.navigate('login');
     }
   }
@@ -35,9 +36,18 @@ class WelcomeScreen extends Component {
     navigation.navigate('signup');
   }
 
+  redirectToLogin = () => {
+    const { navigation } = this.props;
+    navigation.navigate('login');
+  }
+
   render() {
     return (
-      <Slides data={SLIDES_DATA} onComplete={this.redirectToSignup} />
+      <Slides
+        data={SLIDES_DATA}
+        toSignup={this.redirectToSignup}
+        toLogin={this.redirectToLogin}
+      />
     );
   }
 }

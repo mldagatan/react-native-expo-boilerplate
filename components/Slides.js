@@ -6,17 +6,31 @@ import { SCREEN_WIDTH } from '../Globals';
 
 class Slides extends Component {
   renderLastSlide(i) {
-    const { onComplete, data, buttonTitle } = this.props;
+    const {
+      toSignup,
+      toLogin,
+      data,
+      signupText,
+      loginText
+    } = this.props;
 
     if (i < data.length - 1) { return null; }
 
     return (
-      <Button
-        raised
-        title={buttonTitle}
-        containerStyle={styles.buttonStyle}
-        onPress={onComplete}
-      />
+      <View>
+        <Button
+          raised
+          title={signupText}
+          containerStyle={styles.buttonStyle}
+          onPress={toSignup}
+        />
+        <Button
+          title={loginText}
+          type="clear"
+          onPress={toLogin}
+          titleStyle={styles.signupStyle}
+        />
+      </View>
     );
   }
 
@@ -54,7 +68,8 @@ class Slides extends Component {
 Slides.defaultProps = {
   data: [],
   onComplete: () => {},
-  buttonTitle: 'Sign up!'
+  signupText: 'Sign up',
+  loginText: 'Already have an account? Login here.'
 };
 
 const styles = {
@@ -72,6 +87,10 @@ const styles = {
   buttonStyle: {
     marginTop: 15,
     backgroundColor: '#0288d1'
+  },
+  signupStyle: {
+    fontSize: 14,
+    color: '#fff'
   }
 };
 
