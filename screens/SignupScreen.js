@@ -4,6 +4,8 @@ import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
+import FlashMessage from '../components/FlashMessage';
+
 import * as actions from '../actions';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../Globals';
 
@@ -45,11 +47,13 @@ class SignupScreen extends Component {
   renderErrors() {
     const { signUpErrors } = this.props;
 
-    if (!signUpErrors) {
+    if (!signUpErrors.length) {
       return null;
     }
 
-    return signUpErrors.map(error => <Text>{error}</Text>);
+    return signUpErrors.map(error => (
+      <FlashMessage message={error} key={error} />
+    ));
   }
 
   render() {
@@ -57,9 +61,9 @@ class SignupScreen extends Component {
 
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.containerStyle}>
-        {this.renderErrors()}
         <View style={styles.inputContainer}>
           <Text style={styles.signupTitle}>Sign Up</Text>
+          {this.renderErrors()}
           <Input
             placeholder="Email"
             value={email}

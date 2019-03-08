@@ -13,12 +13,15 @@ const signUp = (email, password) => async (dispatch) => {
   const payload = { user: { email, password } };
   const url = `${ROOT_API}/auth`;
 
-  let { data, status } = await axios.post(url, payload);
+  try {
+    let { data, status } = await axios.post(url, payload);
 
-  if (status === 200) {
-    dispatch({ type: AUTH_SIGN_UP, payload: data.data });
-  } else {
-    dispatch({ type: AUTH_SIGN_UP_FAIL, payload: data.errors.full_messages });
+    if (status === 200) {
+      dispatch({ type: AUTH_SIGN_UP, payload: data.data });
+    }
+  } catch (error) {
+    const { data: { errors } } = error.response;
+    dispatch({ type: AUTH_SIGN_UP_FAIL, payload: errors });
   }
 };
 
@@ -38,7 +41,8 @@ const authenticateLogin = (email, password) => async (dispatch) => {
       dispatch({ type: AUTH_SET_USER, payload: data });
     }
   } catch (error) {
-    const { data: { errors } } = error.response;
+    const { data } = error.response;
+    console.log(data);
 
     dispatch({ type: AUTH_FAIL, payload: errors });
   }

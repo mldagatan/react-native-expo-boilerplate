@@ -15,7 +15,7 @@ const DEFAULT_STATE = {
   expiry: null,
   tokenType: null,
   authSuccess: null,
-  authErrors: []
+  authErrors: [],
 };
 
 export default (state = DEFAULT_STATE, action) => {
